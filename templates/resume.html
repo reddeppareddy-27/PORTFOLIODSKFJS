@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Resume - My Portfolio{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>My Resume</h1>
+        <p class="breadcrumb">Home > Resume</p>
+    </div>
+</div>
+
+<section class="resume-section">
+    <div class="container">
+        <div class="resume-grid">
+            <div class="resume-upload">
+                <h2>Upload Your Resume</h2>
+                <p>Share your resume for future opportunities or download mine below.</p>
+                
+                <form method="POST" enctype="multipart/form-data" class="upload-form">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="resume_file" name="resume_file" required 
+                               accept=".pdf,.txt,.doc,.docx,.png,.jpg,.jpeg,.gif"
+                               class="file-input">
+                        <label for="resume_file" class="file-label">
+                            <span class="file-icon">📄</span>
+                            <span class="file-text">Choose a file or drag it here</span>
+                            <span class="file-hint">Supported: PDF, DOC, DOCX, TXT, PNG, JPG (Max 16MB)</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Upload Resume</button>
+                </form>
+                
+                <h3>Download My Resume</h3>
+                <p>Get a copy of my professional resume:</p>
+                <a href="#" class="btn btn-secondary" download>Download Resume (PDF)</a>
+            </div>
+            
+            <div class="resume-content">
+                <h2>Professional Resume</h2>
+                
+                <div class="resume-section">
+                    <h3>Executive Summary</h3>
+                    <p>Results-driven Full-Stack Developer with 5+ years of experience in designing and 
+                    implementing scalable web applications. Proven expertise in Python, JavaScript, and 
+                    modern web frameworks. Seeking challenging opportunities to leverage technical skills 
+                    and contribute to innovative projects.</p>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Core Competencies</h3>
+                    <ul class="skills-list">
+                        <li>Full-Stack Web Development</li>
+                        <li>Python & Flask/Django</li>
+                        <li>JavaScript & React</li>
+                        <li>RESTful API Design</li>
+                        <li>Database Design & Optimization</li>
+                        <li>Cloud Deployment (AWS, GCP)</li>
+                        <li>Agile Development</li>
+                        <li>Team Leadership</li>
+                    </ul>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Professional Experience</h3>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Senior Developer</h4>
+                            <span class="resume-date">2020 - Present</span>
+                        </div>
+                        <p class="company">Tech Company Inc., San Francisco, CA</p>
+                        <ul class="duties-list">
+                            <li>Led a team of 5 developers in designing and implementing microservices architecture</li>
+                            <li>Improved application performance by 40% through optimization and caching strategies</li>
+                            <li>Mentored junior developers and conducted code reviews</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Full-Stack Developer</h4>
+                            <span class="resume-date">2018 - 2020</span>
+                        </div>
+                        <p class="company">Web Solutions Ltd., New York, NY</p>
+                        <ul class="duties-list">
+                            <li>Developed 5+ web applications using Python Flask and React</li>
+                            <li>Implemented PostgreSQL databases with complex queries and indexing</li>
+                            <li>Deployed applications to AWS and managed cloud infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Education</h3>
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Bachelor of Science in Computer Science</h4>
+                            <span class="resume-date">2019</span>
+                        </div>
+                        <p class="company">University Name, City, State</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="uploaded-files-section">
+    <div class="container">
+        <h2>Uploaded Resumes</h2>
+        
+        {% if uploaded_files %}
+        <div class="files-list">
+            {% for file in uploaded_files|reverse %}
+            <div class="file-item">
+                <div class="file-info">
+                    <span class="file-name">{{ file.original_name }}</span>
+                    <span class="file-date">{{ file.upload_time }}</span>
+                </div>
+                <a href="{{ url_for('download', filename=file.filename) }}" class="btn btn-small">Download</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-files">No resumes uploaded yet.</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
